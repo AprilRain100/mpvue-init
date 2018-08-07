@@ -1,10 +1,6 @@
 <template>
   <div>
-    <ul class="container log-list">
-      <li v-for="(log, index) in logs" :class="{ red: aa }" :key="index" class="log-item">
-        <card :text="(index + 1) + ' . ' + log"></card>
-      </li>
-    </ul>
+    <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">立即开启</button>
   </div>
 </template>
 
@@ -22,7 +18,21 @@ export default {
       logs: []
     }
   },
-
+  methods: {
+    onGotUserInfo(e) {
+      if(e.target.userInfo) {
+        wx.navigateBack()
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '请先允许授权再进行操作！',
+          showCancel: false,
+          success: function(res) {
+          }
+        })
+      }
+    }
+  },
   created () {
     const logs = (wx.getStorageSync('logs') || [])
     this.logs = logs.map(log => formatTime(new Date(log)))
@@ -30,14 +40,12 @@ export default {
 }
 </script>
 
-<style>
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
-}
-
-.log-item {
-  margin: 10rpx;
+<style lang="scss" scoped>
+button {
+  position: absolute;
+  bottom: 30px;
+  left: -50%;
+  right: -50%;
+  width: 40%;
 }
 </style>
