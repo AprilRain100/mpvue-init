@@ -1,19 +1,13 @@
 <template>
   <div>
-      <button @click="scanCode">扫描</button>
+    <button @click="scanCode">扫描</button>
       <button @click="chooseImage">拍照</button>
       <div>{{scanCodeData || ''}}</div>
-      <p>
+      <div>
           <h5>拍照返回的数据:</h5>
           {{chooseImageData}}
-      </p>
-    <ul class="container log-list">
-      <li v-for="(log, index) in logs" :class="{ red: aa }" :key="index" class="log-item">
-        <card :text="(index + 1) + ' . ' + log"></card>
-      </li>
-    </ul>
+      </div>
 
-     <open-data type="userNickName"></open-data>
     <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">获取用户信息</button>
   </div>
 </template>

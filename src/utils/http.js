@@ -27,9 +27,11 @@ http.interceptors.response.use(
     return promise.resolve(response.data)
   },
   (err, promise) => {
+    console.log(err)
+    const errMsg = err.response.data.msg;
     wx.hideNavigationBarLoading()
     wx.showToast({
-      title: err.message,
+      title: errMsg || err.message,
       icon: 'none'
     })
     return promise.resolve()

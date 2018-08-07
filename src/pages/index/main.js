@@ -6,5 +6,10 @@ app.$mount()
 export default {
   config: {
     navigationBarTitleText: '首页',
+    usingComponents: {
+      'i-alert': '../../../static/iview/alert/index',
+      'i-toast': '../../../static/iview/toast/index',
+      'i-button': '../../../static/iview/button/index',
+    }
   }
 }

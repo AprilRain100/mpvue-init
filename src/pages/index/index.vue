@@ -7,6 +7,8 @@
       </div>
     </div>
     <a href="/pages/detail/main" class="counter">去详情页</a>
+    <a href="/pages/plugIn/main" class="counter">组件</a>
+
   </div>
 </template>
 
@@ -14,10 +16,10 @@
 import card from '@/components/card'
 import { mapState, mapActions } from "vuex";
 import api from '../../config/api'
+
 export default {
   data () {
     return {
-      userInfo: {}
     }
   },
 
@@ -26,8 +28,7 @@ export default {
   },
   computed: {
     ...mapState([
-        'test',
-        'testMutation'
+      'userInfo'
     ])
   },
   methods: {
@@ -44,8 +45,7 @@ export default {
         success: () => {
           wx.getUserInfo({
             success: (res) => {
-              console.log(res, 'getUserInfo');
-              this.userInfo = res.userInfo
+              this.$store.commit('USERINFO', res.userInfo);
             }
           })
         }
@@ -67,8 +67,7 @@ export default {
       }
     });
     api.in_theaters().then(res => {
-        const {subjects} = res;
-        this.$store.commit('TESTMUTATION', subjects);
+        const {subjects} = res || {};
     });
   },
   async mounted() {
@@ -95,17 +94,6 @@ export default {
 
 .userinfo-nickname {
   color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
 }
 .container {
 
